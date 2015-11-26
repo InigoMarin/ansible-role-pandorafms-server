@@ -1,0 +1,17 @@
+galaxy_info:
+  author: mats116
+  description: "Pandora FMS Server installer"
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - trusty
+  galaxy_tags:
+    - pandorafms
+dependencies:
+  - role: nginx
+  - role: php5-fpm
+    php_version: "5.6"
+  - role: mariadb-server
+    when: "pandora_mysql_host == 'localhost'"

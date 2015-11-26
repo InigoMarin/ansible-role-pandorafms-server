@@ -1,0 +1,21 @@
+#- include: mysql.yml
+
+- name: modify repository
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - "deb http://fr.archive.ubuntu.com/ubuntu precise main multiverse" # snmp-mibs-downloader
+    - "deb http://www.artica.es/debian/squeeze /"
+
+- name: install
+  apt:
+    name: "{{ item }}={{ pandora_version }}*"
+    state: present
+    force: yes
+  with_items:
+    - pandorafms-console
+    - pandorafms-server
+
+- include: php5-fpm.yml
+- include: nginx.yml

@@ -1,0 +1,26 @@
+- name: install python-mysqldb
+  apt:
+    name: python-mysqldb
+    state: latest
+    force: yes
+
+- name: modify ~/.my.cnf
+  template:
+    src: mysql/my.cnf
+    dest: ~/.my.cnf
+    mode: 0600
+  when: "pandora_mysql_host != 'localhost'"
+
+- name: modify mysql database
+  mysql_db:
+    login_host: "{{ pandora_mysql_host }}"
+    name: "{{ pandora_mysql_database }}"
+    state: present
+
+- name: modify mysql user
+  mysql_user:
+    host: "{{ pandora_mysql_host }}"
+    name: "{{ pandora_mysql_user }}"
+    password: "{{ pandora_mysql_password }}"
+    priv: "{{ pandora_mysql_database }}.*:ALL"
+    state: present

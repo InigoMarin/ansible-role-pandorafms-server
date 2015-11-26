@@ -1,0 +1,8 @@
+pandora_version: ""
+
+pandora_nginx_accesslog: /var/log/nginx/pandora-access.log
+
+pandora_mysql_host: localhost
+pandora_mysql_database: pandora
+pandora_mysql_user: pandora
+pandora_mysql_password: pandora
